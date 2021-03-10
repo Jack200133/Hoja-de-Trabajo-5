@@ -62,7 +62,7 @@ for i in range(cantidadpro):
     Ram_need = (random.expovariate(1/10) % 10+1)  # cantidad de ram x proceso
 
     env.process(process(env, 'Proceso %d' %
-                        i, round(Ram_need), Cantint, CPU, wait, RAM))
+                        i, round(Ram_need), round(Cantint), CPU, wait, RAM))
 
 env.run()
 print('Tiempo promedio ', totaldia/cantidadpro)
