@@ -56,7 +56,8 @@ cantidadpro = 50  # cantidad de procesos
 random.seed(10)  # seed del random
 
 for i in range(cantidadpro):
-    Cantint = random.randint(1, 10)  # cantidad de uinstrucciones x proceso
+    # cantidad de uinstrucciones x proceso
+    Cantint = (random.expovariate(1/10) % 10+1)
 
     Ram_need = (random.expovariate(1/10) % 10+1)  # cantidad de ram x proceso
 
