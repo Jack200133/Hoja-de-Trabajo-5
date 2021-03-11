@@ -11,9 +11,10 @@ import math
 # cant_inst: cantidad de instrucciones
 
 
-def process(env, name, Ram_need, cant_inst, CPU, wait_time, RAM):
+def process(env, name, Ram_need, cant_inst, CPU, wait_time, RAM, tiempollegada):
     global totaldia
     totaldia = 0
+    yield env.timeout(tiempollegada)
     llegada = env.now
     run = True
     while run:
@@ -32,7 +33,7 @@ def process(env, name, Ram_need, cant_inst, CPU, wait_time, RAM):
                 print(' %s Hace 3 procesos, con un tiempo de %s y queda con %s penientes' %
                       (name, env.now, cant_inst))
             # random por si se va aespera o vuelve al CPU
-            feo = random.randint(1, 3)
+            feo = random.randint(1, 2)
             if(feo == 1):
                 with wait_time.request() as req:
                     yield req
@@ -57,12 +58,14 @@ random.seed(10)  # seed del random
 
 for i in range(cantidadpro):
     # cantidad de uinstrucciones x proceso
-    Cantint = (random.expovariate(1/10) % 10+1)
+    Cantint = (random.randint(1, 10))
 
-    Ram_need = (random.expovariate(1/10) % 10+1)  # cantidad de ram x proceso
+    Ram_need = (random.randint(1, 10))  # cantidad de ram x proceso
+
+    timepollega = (random.expovariate(1/10))
 
     env.process(process(env, 'Proceso %d' %
-                        i, round(Ram_need), round(Cantint), CPU, wait, RAM))
+                        i, round(Ram_need), round(Cantint), CPU, wait, RAM, timepollega))
 
 env.run()
 print('Tiempo promedio ', totaldia/cantidadpro)
